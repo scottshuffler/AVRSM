@@ -1,5 +1,5 @@
-# SPeAK
-Scott's Preemptive AVR Kernel
+# SPeaK
+Scott's Preemptive almost Kernel
 
 Arduino Mega 2560
 
