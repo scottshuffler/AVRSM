@@ -1,8 +1,9 @@
 main: main.c
 	avr-gcc -std=gnu99 -g -Os -Wall -fno-exceptions -ffunction-sections -fdata-sections -mmcu=atmega2560 -DF_CPU=16000000L -MMD -DUSB_VID=null -DARDUINO=106 -I../lib -c -o ./output/main.o main.c 
 	avr-gcc -std=gnu99 -g -Os -Wall -fno-exceptions -ffunction-sections -fdata-sections -mmcu=atmega2560 -DF_CPU=16000000L -MMD -DUSB_VID=null -DARDUINO=106 -I../lib -c -o ./output/digital.o digital.c 
+	avr-gcc -std=gnu99 -g -Os -Wall -fno-exceptions -ffunction-sections -fdata-sections -mmcu=atmega2560 -DF_CPU=16000000L -MMD -DUSB_VID=null -DARDUINO=106 -I../lib -c -o ./output/serial.o serial.c 
 	# avr-gcc -g -mmcu=atmega2560 -DF_CPU=16000000L -o ./output/main.elf ./output/main.o
-	avr-gcc -g -mmcu=atmega2560 -DF_CPU=16000000L -o ./output/main.elf ./output/main.o ./output/digital.o
+	avr-gcc -g -mmcu=atmega2560 -DF_CPU=16000000L -o ./output/main.elf ./output/main.o ./output/digital.o ./output/serial.o
 	avr-objcopy -O ihex -R .eeprom ./output/main.elf ./output/main.hex 
 	sudo avrdude -v -v -patmega2560 -cwiring -P/dev/ttyACM1 -b115200 -D -Uflash:w:./output/main.hex:i 
 

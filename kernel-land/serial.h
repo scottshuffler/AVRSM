@@ -65,10 +65,8 @@
 // 00 11 1 011
 #define RECIEVE_LENGTH 64
 
-volatile char transmit_ISR_is_ready = 1;
 char buffer[RECIEVE_LENGTH];
 static volatile int size = 0;
-int is_ready = 0;
 
 //Prototypes
 void serial_open(long speed, int config);
