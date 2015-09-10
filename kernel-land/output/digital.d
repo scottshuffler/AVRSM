@@ -1,1 +1,1 @@
-output/digital.o: digital.c digital.h
+kernel-land/output/digital.o: kernel-land/digital.c kernel-land/digital.h
