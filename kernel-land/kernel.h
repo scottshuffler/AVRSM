@@ -13,6 +13,7 @@
 #include <avr/io.h>
 #include "digital.h"
 #include "serial.h"
+ #include "stack.h"
 #include <util/delay.h>
 #include <avr/interrupt.h>
 #define PIN 7

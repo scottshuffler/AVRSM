@@ -6,6 +6,8 @@ int main(void)
     while(1)
     {
         prints(" ###### ");
+		char buffer[8];
+        prints(buffer);
         // _delay_ms(800);
         // get_temp();
         // _delay_ms(800);

@@ -9,6 +9,12 @@
 #include <util/delay.h>
 #include <avr/interrupt.h>
 
+void create_thread();
+void start_thread();
+void sleep();
+void suspend_thread();
+void resume_thread();
+
 
 // int main(void)
 // {

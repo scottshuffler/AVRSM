@@ -12,7 +12,7 @@ main: ./kernel-land/kernel.c
 	avr-objcopy -O ihex -R .eeprom ./kernel-land/output/kernel.elf ./kernel-land/output/kernel.hex 
 
 	#UPLOAD TO MCU
-	sudo avrdude -v -v -patmega2560 -cwiring -P/dev/ttyACM1 -b115200 -D -Uflash:w:./kernel-land/output/kernel.hex:i 
+	sudo avrdude -v -v -patmega2560 -cwiring -P/dev/ttyACM0 -b115200 -D -Uflash:w:./kernel-land/output/kernel.hex:i 
 
 uploadMac:
 	avrdude -v -v -patmega2560 -cwiring -P/dev/cu.usbmodemfa131 -b115200 -D -Uflash:w:./output/kernel.hex:i 
