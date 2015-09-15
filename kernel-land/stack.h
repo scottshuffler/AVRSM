@@ -6,5 +6,7 @@
 
 #define TOTAL_RAM_SIZE (RAMEND - RAMSTART)
 
+#define CANARY_VALUE 0XDEADBEEF
+
 
 #endif /* STACK_H_ */

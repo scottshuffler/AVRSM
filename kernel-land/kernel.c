@@ -9,10 +9,13 @@
 #include <util/delay.h>
 #include <avr/interrupt.h>
 
-void create_thread();
-void start_thread();
-void sleep();
-void suspend_thread();
-void resume_thread();
+ #define F_CPU 16000000
+ #define MAX_NUM_THREADS 8
+
+// void create_thread();
+// void start_thread();
+// void sleep();
+// void suspend_thread();
+// void resume_thread();
 
 
