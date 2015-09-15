@@ -6,9 +6,11 @@ main: ./kernel-land/kernel.c
 	
 	##COMPILE THE USER SIDE AFTER
 	avr-gcc -std=gnu99 -g -Os -Wall -fno-exceptions -ffunction-sections -fdata-sections -mmcu=atmega2560 -DF_CPU=16000000L -MMD -DUSB_VID=null -DARDUINO=106 -I../lib -c -o ./user-land/output/main.o ./user-land/main.c
+	avr-gcc -std=gnu99 -g -Os -Wall -fno-exceptions -ffunction-sections -fdata-sections -mmcu=atmega2560 -DF_CPU=16000000L -MMD -DUSB_VID=null -DARDUINO=106 -I../lib -c -o ./user-land/output/DHT22.o ./user-land/DHT22.c
+
 
 	##LINK ALL FILES INTO ONE .HEX FILE
-	avr-gcc -g -mmcu=atmega2560 -DF_CPU=16000000L -o ./kernel-land/output/kernel.elf ./kernel-land/output/kernel.o ./kernel-land/output/digital.o ./kernel-land/output/serial.o ./user-land/output/main.o
+	avr-gcc -g -mmcu=atmega2560 -DF_CPU=16000000L -o ./kernel-land/output/kernel.elf ./kernel-land/output/kernel.o ./kernel-land/output/digital.o ./kernel-land/output/serial.o ./user-land/output/main.o ./user-land/output/DHT22.o
 	avr-objcopy -O ihex -R .eeprom ./kernel-land/output/kernel.elf ./kernel-land/output/kernel.hex 
 
 	#UPLOAD TO MCU
