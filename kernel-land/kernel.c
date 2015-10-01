@@ -8,14 +8,17 @@
 #include "kernel.h"
 #include <util/delay.h>
 #include <avr/interrupt.h>
+#include <avr/pgmspace.h>
+#include <util/atomic.h>
 
- #define F_CPU 16000000
- #define MAX_NUM_THREADS 8
 
-// void create_thread();
+void asm_create_thread();
 // void start_thread();
 // void sleep();
 // void suspend_thread();
 // void resume_thread();
+
+
+
 
 

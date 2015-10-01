@@ -3,23 +3,28 @@ main: ./kernel-land/kernel.c
 	avr-gcc -std=gnu99 -g -Os -Wall -fno-exceptions -ffunction-sections -fdata-sections -mmcu=atmega2560 -DF_CPU=16000000L -MMD -DUSB_VID=null -DARDUINO=106 -I../lib -c -o ./kernel-land/output/kernel.o ./kernel-land/kernel.c 
 	avr-gcc -std=gnu99 -g -Os -Wall -fno-exceptions -ffunction-sections -fdata-sections -mmcu=atmega2560 -DF_CPU=16000000L -MMD -DUSB_VID=null -DARDUINO=106 -I../lib -c -o ./kernel-land/output/digital.o ./kernel-land/digital.c 
 	avr-gcc -std=gnu99 -g -Os -Wall -fno-exceptions -ffunction-sections -fdata-sections -mmcu=atmega2560 -DF_CPU=16000000L -MMD -DUSB_VID=null -DARDUINO=106 -I../lib -c -o ./kernel-land/output/serial.o ./kernel-land/serial.c 
-	
+	avr-gcc -std=gnu99 -g -Os -Wall -fno-exceptions -ffunction-sections -fdata-sections -mmcu=atmega2560 -DF_CPU=16000000L -MMD -DUSB_VID=null -DARDUINO=106 -I../lib -c -o ./kernel-land/output/kernelASM.o ./kernel-land/kernelASM.S 
+
 	##COMPILE THE USER SIDE AFTER
 	avr-gcc -std=gnu99 -g -Os -Wall -fno-exceptions -ffunction-sections -fdata-sections -mmcu=atmega2560 -DF_CPU=16000000L -MMD -DUSB_VID=null -DARDUINO=106 -I../lib -c -o ./user-land/output/main.o ./user-land/main.c
 	avr-gcc -std=gnu99 -g -Os -Wall -fno-exceptions -ffunction-sections -fdata-sections -mmcu=atmega2560 -DF_CPU=16000000L -MMD -DUSB_VID=null -DARDUINO=106 -I../lib -c -o ./user-land/output/DHT22.o ./user-land/DHT22.c
+	avr-gcc -std=gnu99 -g -Os -Wall -fno-exceptions -ffunction-sections -fdata-sections -mmcu=atmega2560 -DF_CPU=16000000L -MMD -DUSB_VID=null -DARDUINO=106 -I../lib -c -o ./user-land/output/w5100.o ./user-land/w5100.c
 
 
 	##LINK ALL FILES INTO ONE .HEX FILE
-	avr-gcc -g -mmcu=atmega2560 -DF_CPU=16000000L -o ./kernel-land/output/kernel.elf ./kernel-land/output/kernel.o ./kernel-land/output/digital.o ./kernel-land/output/serial.o ./user-land/output/main.o ./user-land/output/DHT22.o
+	avr-gcc -g -mmcu=atmega2560 -DF_CPU=16000000L -o ./kernel-land/output/kernel.elf ./kernel-land/output/kernel.o ./kernel-land/output/digital.o ./kernel-land/output/serial.o ./kernel-land/output/kernelASM.o ./user-land/output/main.o ./user-land/output/DHT22.o ./user-land/output/w5100.o
 	avr-objcopy -O ihex -R .eeprom ./kernel-land/output/kernel.elf ./kernel-land/output/kernel.hex 
 
 	#UPLOAD TO MCU
 	sudo avrdude -v -v -patmega2560 -cwiring -P/dev/ttyACM0 -b115200 -D -Uflash:w:./kernel-land/output/kernel.hex:i 
 
+	#Starts up a screen to see serial output
+	sudo screen /dev/ttyACM0 19200
+
 uploadMac:
 	avrdude -v -v -patmega2560 -cwiring -P/dev/cu.usbmodemfa131 -b115200 -D -Uflash:w:./output/kernel.hex:i 
 uploadLinux:
-	avrdude -v -v -patmega2560 -cwiring -P/dev/ttyACM1 -b115200 -D -Uflash:w:./output/kernel.hex:i 
+	avrdude -v -v -patmega2560 -cwiring -P/dev/ttyACM0 -b115200 -D -Uflash:w:./output/kernel.hex:i 
 
 # CC=avr-gcc
 # OBJCOPY=avr-objcopy
